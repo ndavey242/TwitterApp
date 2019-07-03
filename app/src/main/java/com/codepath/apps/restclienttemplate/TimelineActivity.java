@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
 
+    private SwipeRefreshLayout swipeContainer;
+
     private TwitterClient client;
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;//our data source
@@ -42,6 +45,29 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //first clear everything out
+                tweetAdapter.clear();
+                //repopulate
+                populateTimeline();
+                //now make sure swipeContainer.setRefreshing is set to false
+                //but let's not do that here becauuuuuse.... ASYNCHRONOUS
+                //lets put it at the end of populateTimeline instead!
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
 
         //changing the action bar color to Twitter's signature blue ;)
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -62,6 +88,9 @@ public class TimelineActivity extends AppCompatActivity {
 
         populateTimeline();
     }
+
+
+
 
     private final int REQUEST_CODE = 20;
     public void onComposeAction(MenuItem mi) {
@@ -108,6 +137,8 @@ public class TimelineActivity extends AppCompatActivity {
                     } catch(JSONException e){
                         e.printStackTrace();
                     }
+                    //Now we call setRefreshing(false) to signal refresh has finished
+                    swipeContainer.setRefreshing(false);
                 }
             }
 
