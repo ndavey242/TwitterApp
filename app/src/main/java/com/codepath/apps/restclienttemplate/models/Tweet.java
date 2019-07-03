@@ -2,7 +2,10 @@ package com.codepath.apps.restclienttemplate.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
+
+@Parcel
 public class Tweet {
     //list out the attributes
     public String body;
@@ -11,7 +14,7 @@ public class Tweet {
     public String createdAt;
 
     //deserialize the JSON data
-    public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
+    public static Tweet fromJSON (JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
 
         //extract the values from JSON
@@ -21,5 +24,11 @@ public class Tweet {
         //going to the User class to extract data from the JSONObject "user" within jsonObject
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
         return tweet;
+    }
+
+
+    //required by Parcel
+    public Tweet(){
+
     }
 }

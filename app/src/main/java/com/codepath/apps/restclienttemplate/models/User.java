@@ -2,7 +2,10 @@ package com.codepath.apps.restclienttemplate.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
+
+@Parcel
 public class User {
     //list the attributes
     public String name;
@@ -22,5 +25,10 @@ public class User {
         user.profileImageURL = json.getString("profile_image_url");
 
         return user;
+    }
+
+    //required by Parcel
+    public User(){
+
     }
 }
