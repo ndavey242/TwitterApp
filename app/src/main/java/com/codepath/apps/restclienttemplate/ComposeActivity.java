@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.codepath.apps.restclienttemplate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.TwitterApp;
-import com.codepath.apps.restclienttemplate.TwitterClient;
+import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONException;
@@ -37,10 +35,10 @@ public class ComposeActivity extends AppCompatActivity {
         //getting the EditText
         EditText etNewTweet = (EditText) findViewById(R.id.etNewTweet);
         //getting the @ handle (screen name)
-//
-//        if (reply){
-//            etNewTweet.setText("@" + );
-//        }
+        if (reply){
+            String screenName = i.getStringExtra("SCREEN_NAME");
+            etNewTweet.setText("@" + screenName);
+        }
 
         etNewTweet.addTextChangedListener(mTextEditorWatcher);
     }

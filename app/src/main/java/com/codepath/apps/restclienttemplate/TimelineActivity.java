@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.codepath.apps.restclienttemplate.models.ComposeActivity;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -81,7 +80,7 @@ public class TimelineActivity extends AppCompatActivity {
         //init the arraylist (data source)
         tweets = new ArrayList<>();
         //construct the adapter from the data source
-        tweetAdapter = new TweetAdapter(tweets);
+        tweetAdapter = new TweetAdapter(tweets, this);
         //RecyclerView setup (layout manager, use adapter), pass in the context!
         //the layout manager needs the context to know what kinds of settings to use
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
@@ -94,20 +93,15 @@ public class TimelineActivity extends AppCompatActivity {
 
 
 
-    private final int REQUEST_CODE = 20;
     public void onComposeAction(MenuItem mi) {
         // handle click here
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
         i.putExtra("REPLY", false);
-        startActivityForResult(i, REQUEST_CODE);
+        startActivityForResult(i, 20);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        // check request code and result code first
-//        if (resultCode == )
-
         // Use data parameter
         Tweet newTweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("NEW_TWEET"));
         tweets.add(0, newTweet);
@@ -171,13 +165,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
-//    int REQUEST_CODE = 20;
-//    public void onReply(){
-//        Intent i = new Intent(context, ComposeActivity.class);
-//        i.putExtra("REPLY", true);
-//        i.putExtra();
-//        context.startActivityForResult(i, REQUEST_CODE);
-//    }
+
 
 }
 
