@@ -13,7 +13,6 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +20,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.codepath.apps.restclienttemplate.models.TimeFormatter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
@@ -67,13 +67,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         //populate the views according to this data
         viewHolder.tvUserName.setText(tweet.user.name);
         viewHolder.tvScreenName.setText("@" + tweet.user.screenName);
-        viewHolder.tvCreatedAt.setText(getRelativeTimeAgo(tweet.createdAt));
+        viewHolder.tvCreatedAt.setText(TimeFormatter.getTimeDifference(tweet.createdAt));
         viewHolder.tvBody.setText(tweet.body);
 
         Glide.with(context)
                 .load(tweet.user.profileImageURL)
+                .apply(new RequestOptions()
+                .transform(new RoundedCornersTransformation(100, 0, RoundedCornersTransformation.CornerType.ALL)))
                 .into(viewHolder.ivProfileImage);
     }
+
 
     //how many tweets to display
     @Override
@@ -81,8 +84,8 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         return mTweets.size();
     }
 
-    //create ViewHolder class
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView ivProfileImage;
         public TextView tvUserName;
         public TextView tvScreenName;
@@ -101,36 +104,26 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             tvCreatedAt = (TextView) itemView.findViewById(R.id.tvCreatedAt);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
         }
-    }
 
-    // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
-    //method imported from github -- https://gist.github.com/nesquena/f786232f5ef72f6e10a7
-    public String getRelativeTimeAgo(String rawJsonDate) {
-        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
-        sf.setLenient(true);
-
-        String relativeDate = "";
-        try {
-            long dateMillis = sf.parse(rawJsonDate).getTime();
-            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        // Handles the row being being clicked
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition(); // gets item position
+            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
+                Tweet tweet = mTweets.get(position);
+                // Intent i = new Intent(this.context, BookDetailActivity.class);
+                //                i.putExtra("BOOK", Parcels.wrap(book));
+                //                context.startActivity(i);
+                //TODO: put intent to tweet detail activity
+            }
         }
 
-        return relativeDate;
     }
+
 
     // Clean all elements of the recycler
     public void clear() {
         mTweets.clear();
-        notifyDataSetChanged();
-    }
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Tweet> list) {
-        mTweets.addAll(list);
         notifyDataSetChanged();
     }
 }

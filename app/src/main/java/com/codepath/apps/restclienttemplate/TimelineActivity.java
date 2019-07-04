@@ -72,6 +72,8 @@ public class TimelineActivity extends AppCompatActivity {
         //changing the action bar color to Twitter's signature blue ;)
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.twitter_color)));
+        actionBar.setTitle("");
+        actionBar.setIcon(getResources().getDrawable(R.drawable.ic_icon));
 
         client = TwitterApp.getRestClient(this);
         //find the RecyclerView
@@ -96,6 +98,7 @@ public class TimelineActivity extends AppCompatActivity {
     public void onComposeAction(MenuItem mi) {
         // handle click here
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+        i.putExtra("REPLY", false);
         startActivityForResult(i, REQUEST_CODE);
     }
 
@@ -167,5 +170,14 @@ public class TimelineActivity extends AppCompatActivity {
 
         });
     }
+
+//    int REQUEST_CODE = 20;
+//    public void onReply(){
+//        Intent i = new Intent(context, ComposeActivity.class);
+//        i.putExtra("REPLY", true);
+//        i.putExtra();
+//        context.startActivityForResult(i, REQUEST_CODE);
+//    }
+
 }
 
