@@ -40,7 +40,7 @@ public class ComposeActivity extends AppCompatActivity {
         //getting the @ handle (screen name)
         if (reply){
             String screenName = i.getStringExtra("SCREEN_NAME");
-            etNewTweet.setText("@" + screenName);
+            etNewTweet.setText(screenName);
         }
 
         etNewTweet.addTextChangedListener(mTextEditorWatcher);

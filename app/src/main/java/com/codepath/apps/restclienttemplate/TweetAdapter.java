@@ -131,7 +131,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             String screenName = user.screenName;
             Intent i = new Intent(context, ComposeActivity.class);
             i.putExtra("REPLY", true);
-            i.putExtra("SCREEN_NAME", screenName);
+            i.putExtra("SCREEN_NAME", "@" + screenName);
             activity.startActivityForResult(i,20);
         }
 

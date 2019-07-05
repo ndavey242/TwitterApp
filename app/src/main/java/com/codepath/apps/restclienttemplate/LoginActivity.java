@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.SampleModel;
 import com.codepath.apps.restclienttemplate.models.SampleModelDao;
@@ -45,7 +44,6 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	// i.e Display application "homepage"
 	@Override
 	public void onLoginSuccess() {
-		Toast.makeText(this, "SUCCESSFUL LOGIN", Toast.LENGTH_LONG).show();
 		Intent i = new Intent(this, TimelineActivity.class);
 		startActivity(i);
 	}

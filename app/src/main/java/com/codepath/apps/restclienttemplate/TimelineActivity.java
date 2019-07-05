@@ -74,8 +74,10 @@ public class TimelineActivity extends AppCompatActivity {
         //changing the action bar color to Twitter's signature blue ;)
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.twitter_color)));
-        actionBar.setTitle("");
-        actionBar.setIcon(getResources().getDrawable(R.drawable.ic_icon));
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setLogo(getResources().getDrawable(R.drawable.ic_icon));
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         client = TwitterApp.getRestClient(this);
         //find the RecyclerView
@@ -90,9 +92,8 @@ public class TimelineActivity extends AppCompatActivity {
         //set the adapter
         rvTweets.setAdapter(tweetAdapter);
 
-        populateTimeline();
+//        populateTimeline(); --> moved to onPrepareOptionsMenu bc of the action progress bar
     }
-
 
 
 
@@ -119,7 +120,32 @@ public class TimelineActivity extends AppCompatActivity {
         return true;
     }
 
+    //CODE FOR ACTION PROGRESS BAR
+
+//    @BindView(R.id.miActionProgress) MenuItem miActionProgressItem;
+    MenuItem miActionProgressItem;
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        populateTimeline();
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
+    }
+
+
     private void populateTimeline(){
+        showProgressBar();
         client.getHomeTimeline(new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -140,29 +166,34 @@ public class TimelineActivity extends AppCompatActivity {
                     //Now we call setRefreshing(false) to signal refresh has finished
                     swipeContainer.setRefreshing(false);
                 }
+                hideProgressBar();
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d("TwitterClient", response.toString());
+                hideProgressBar();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("TwitterClient", responseString);
                 throwable.printStackTrace();
+                hideProgressBar();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 Log.d("TwitterClient", errorResponse.toString());
                 throwable.printStackTrace();
+                hideProgressBar();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.d("TwitterClient", errorResponse.toString());
                 throwable.printStackTrace();
+                hideProgressBar();
             }
 
         });

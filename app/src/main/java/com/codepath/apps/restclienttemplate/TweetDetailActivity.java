@@ -1,7 +1,10 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +17,7 @@ import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetDetailActivity extends AppCompatActivity {
@@ -31,6 +35,14 @@ public class TweetDetailActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        //changing the action bar color to Twitter's signature blue ;)
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.twitter_color)));
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setLogo(getResources().getDrawable(R.drawable.ic_icon));
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
         Tweet tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("TWEET"));
 
         tvUsername.setText(tweet.user.name);
@@ -43,5 +55,14 @@ public class TweetDetailActivity extends AppCompatActivity {
                 .apply(new RequestOptions()
                         .transform(new RoundedCornersTransformation(100, 0, RoundedCornersTransformation.CornerType.ALL)))
                 .into(ivProfileImage);
+    }
+
+    @OnClick(R.id.ibReply)
+    public void onClickReply(View view) {
+        String screenName = tvScreenName.getText().toString();
+        Intent i = new Intent(this, ComposeActivity.class);
+        i.putExtra("REPLY", true);
+        i.putExtra("SCREEN_NAME", screenName);
+        startActivityForResult(i,20);
     }
 }
