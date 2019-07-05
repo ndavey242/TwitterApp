@@ -35,12 +35,13 @@ import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
 
-//    private SwipeRefreshLayout swipeContainer;
-
     private TwitterClient client;
     TweetAdapter tweetAdapter;
     ArrayList<Tweet> tweets;//our data source
     RecyclerView rvTweets;
+    //for endless scrolling
+    private EndlessRecyclerViewScrollListener scrollListener;
+    long maxID = 0;
 
     @BindView(R.id.swipeContainer) SwipeRefreshLayout swipeContainer;
 
@@ -57,7 +58,7 @@ public class TimelineActivity extends AppCompatActivity {
                 //first clear everything out
                 tweetAdapter.clear();
                 //repopulate
-                populateTimeline();
+                populateTimeline(maxID);
                 //now make sure swipeContainer.setRefreshing is set to false
                 //but let's not do that here becauuuuuse.... ASYNCHRONOUS
                 //lets put it at the end of populateTimeline instead!
@@ -86,15 +87,41 @@ public class TimelineActivity extends AppCompatActivity {
         tweets = new ArrayList<>();
         //construct the adapter from the data source
         tweetAdapter = new TweetAdapter(tweets, this);
+
+        //for endless scrolling we need to init the LLM early so we can pass it to endlessScrollingListener
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextDataFromApi(page);
+            }
+        };
+
+        // Adds the scroll listener to RecyclerView
+        rvTweets.addOnScrollListener(scrollListener);
+
         //RecyclerView setup (layout manager, use adapter), pass in the context!
         //the layout manager needs the context to know what kinds of settings to use
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        rvTweets.setLayoutManager(linearLayoutManager);
         //set the adapter
         rvTweets.setAdapter(tweetAdapter);
 
 //        populateTimeline(); --> moved to onPrepareOptionsMenu bc of the action progress bar
     }
 
+    //for endless scrolling
+    // This method probably sends out a network request and appends new data items to your adapter.
+    public void loadNextDataFromApi(int offset) {
+        maxID = tweets.get(tweets.size()-1).uid; //get the id last tweet
+        populateTimeline(maxID);
+        // Send an API request to retrieve appropriate paginated data
+        //  --> Send the request including an offset value (i.e `page`) as a query parameter.
+        //  --> Deserialize and construct new model objects from the API response
+        //  --> Append the new data objects to the existing set of items inside the array of items
+        //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
+    }
 
 
     public void onComposeAction(MenuItem mi) {
@@ -128,7 +155,7 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         miActionProgressItem = menu.findItem(R.id.miActionProgress);
-        populateTimeline();
+        populateTimeline(maxID);
         // Return to finish
         return super.onPrepareOptionsMenu(menu);
     }
@@ -144,9 +171,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
 
-    private void populateTimeline(){
+    private void populateTimeline(long maxID){
         showProgressBar();
-        client.getHomeTimeline(new JsonHttpResponseHandler(){
+        client.getHomeTimeline(maxID, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
 //                Log.d("TwitterClient", response.toString());
