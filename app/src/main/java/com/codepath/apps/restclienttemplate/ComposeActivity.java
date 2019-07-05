@@ -16,24 +16,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 
 public class ComposeActivity extends AppCompatActivity {
     private TwitterClient client;
+    @BindView(R.id.etNewTweet) EditText etNewTweet;
+    @BindView(R.id.tvCharacters) TextView tvCharacters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+        ButterKnife.bind(this);
 
         client = TwitterApp.getRestClient(this);
 
         Intent i = getIntent();
         Boolean reply = i.getBooleanExtra("REPLY", false);
 
-        //getting the EditText
-        EditText etNewTweet = (EditText) findViewById(R.id.etNewTweet);
         //getting the @ handle (screen name)
         if (reply){
             String screenName = i.getStringExtra("SCREEN_NAME");
@@ -44,8 +47,8 @@ public class ComposeActivity extends AppCompatActivity {
     }
 
     public void onSaveTweet(View v) {
-        EditText editText = (EditText) findViewById(R.id.etNewTweet);
-        String newTweet = editText.getText().toString();
+
+        String newTweet = etNewTweet.getText().toString();
 
         // handle click here
         client.sendTweet(newTweet, new JsonHttpResponseHandler(){
@@ -77,7 +80,6 @@ public class ComposeActivity extends AppCompatActivity {
         }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            TextView tvCharacters = (TextView) findViewById(R.id.tvCharacters);
             //This sets a textview to the current length
             String remaining = String.valueOf(280 - s.length());
             tvCharacters.setText(remaining);

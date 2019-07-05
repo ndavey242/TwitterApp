@@ -12,21 +12,24 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import org.parceler.Parcels;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetDetailActivity extends AppCompatActivity {
+
+    @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+    @BindView(R.id.tvUsername) TextView tvUsername;
+    @BindView(R.id.tvScreenName) TextView tvScreenName;
+    @BindView(R.id.tvBody) TextView tvBody;
+    @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet_detail);
 
-        ImageView ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
-        TextView tvUsername = (TextView) findViewById(R.id.tvUsername);
-        TextView tvScreenName = (TextView) findViewById(R.id.tvScreenName);
-        TextView tvBody = (TextView) findViewById(R.id.tvBody);
-        TextView tvCreatedAt = (TextView) findViewById(R.id.tvCreatedAt);
-
+        ButterKnife.bind(this);
 
         Tweet tweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("TWEET"));
 

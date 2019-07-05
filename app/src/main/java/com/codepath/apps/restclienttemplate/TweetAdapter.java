@@ -14,7 +14,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +32,9 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
@@ -76,7 +78,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         Tweet tweet = mTweets.get(i);
 
         //populate the views according to this data
-        viewHolder.tvUserName.setText(tweet.user.name);
+        viewHolder.tvUsername.setText(tweet.user.name);
         viewHolder.tvScreenName.setText("@" + tweet.user.screenName);
         viewHolder.tvCreatedAt.setText(TimeFormatter.getTimeDifference(tweet.createdAt));
         viewHolder.tvBody.setText(tweet.body);
@@ -96,46 +98,24 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView ivProfileImage;
-        public TextView tvUserName;
-        public TextView tvScreenName;
-        public TextView tvCreatedAt;
-        public TextView tvBody;
-        public ImageButton ibReply;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+        @BindView(R.id.tvUsername) TextView tvUsername;
+        @BindView(R.id.tvScreenName) TextView tvScreenName;
+        @BindView(R.id.tvBody) TextView tvBody;
+        @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
+        @BindView(R.id.ibReply) ImageButton ibReply;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
 
-            //perform find view by id lookups
-
-            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
-            tvUserName = (TextView) itemView.findViewById(R.id.tvUsername);
-            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
-            tvCreatedAt = (TextView) itemView.findViewById(R.id.tvCreatedAt);
-            tvBody = (TextView) itemView.findViewById(R.id.tvBody);
-            ibReply = (ImageButton) itemView.findViewById(R.id.ibReply);
-
-            itemView.setOnClickListener(this);
-            ibReply.setOnClickListener(this);
         }
 
-
-        // Handles the row being being clicked
-        @Override
-        public void onClick(View view) {
+        @OnClick (R.id.clItem)
+        public void onClickItem(View view) {
             int position = getAdapterPosition(); // gets item position
-
-            if (view instanceof ConstraintLayout) {
-                onClickItem(view, position);
-
-            } else if (view instanceof ImageButton) {
-                onClickReply(view, position);
-            }
-        }
-
-        public void onClickItem(View view, int position) {
             Tweet tweet = mTweets.get(position);
             Intent i = new Intent(context, TweetDetailActivity.class);
             i.putExtra("TWEET", Parcels.wrap(tweet));
@@ -143,7 +123,9 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
         }
 
-        public void onClickReply(View view, int position) {
+        @OnClick (R.id.ibReply)
+        public void onClickReply(View view) {
+            int position = getAdapterPosition(); // gets item position
             Tweet tweet = mTweets.get(position);
             User user = tweet.user;
             String screenName = user.screenName;
