@@ -25,7 +25,7 @@ The following **stretch** features are implemented:
 * [X] User can **see a counter with total number of characters left for tweet** on compose tweet page
 * [X] User can **pull down to refresh tweets timeline**
 * [X] User is using **"Twitter branded" colors and styles**
-* [ ] User sees an **indeterminate progress indicator** when any background or network task is happening
+* [X] User sees an **indeterminate progress indicator** when any background or network task is happening
 * [X] User can **select "reply" from detail view to respond to a tweet**
   * [X] User that wrote the original tweet is **automatically "@" replied in compose**
 * [X] User can tap a tweet to **open a detailed tweet view**
@@ -34,20 +34,18 @@ The following **stretch** features are implemented:
 
 The following **bonus** features are implemented:
 
-* [ ] User can view more tweets as they scroll with infinite pagination
-* [ ] Compose tweet functionality is build using modal overlay
-* [ ] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
+* [X] User can view more tweets as they scroll with infinite pagination
 * [X] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.org/android/Using-Parceler).
 * [~] **partial:** Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where appropriate.
-* [ ] User can view following / followers list through any profile they view.
 * [X] Use the popular ButterKnife annotation library to reduce view boilerplate.
-* [ ] On the Twitter timeline, leverage the [CoordinatorLayout](http://guides.codepath.org/android/Handling-Scrolls-with-CoordinatorLayout#responding-to-scroll-events) to apply scrolling behavior that [hides / shows the toolbar](http://guides.codepath.org/android/Using-the-App-ToolBar#reacting-to-scroll).
-* [ ] User can **open the twitter app offline and see last loaded tweets**. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
 
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [X] Added Twitter icon to ActionBar.
+* [X] Added Twitter icon and styling to login page.
+* [X] Added like, retweet, and home buttons on main timeline, as well as like, retweet, and follow buttons on detail view (though they don't have functionality).
+* [X] Made profile pictures rounded.
 
 ## Video Walkthrough
 
@@ -59,7 +57,10 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+- Very minor struggle with some layout stuff (the vector drawables & some constraint layout issues).
+- Definitely have a better understanding of click listeners now.
+- The Butterknife library was actually very useful and quick to implement.
+- I really liked how much we could play around with this app and add the features we wanted to add! Lots of room for creativity.
 
 ## Open-source libraries used
 
