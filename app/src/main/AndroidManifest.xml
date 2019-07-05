@@ -14,8 +14,11 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ComposeActivity"></activity>
-        <activity android:name=".TimelineActivity" android:icon="@drawable/ic_icon" />
+        <activity android:name=".TweetDetailActivity"></activity>
+        <activity android:name=".ComposeActivity" />
+        <activity
+            android:name=".TimelineActivity"
+            android:icon="@drawable/ic_icon" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"

@@ -22,13 +22,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.TimeFormatter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.apps.restclienttemplate.models.User;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -124,11 +125,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         // Handles the row being being clicked
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "Item Pressed = " + String.valueOf(view), Toast.LENGTH_SHORT).show();
             int position = getAdapterPosition(); // gets item position
-
-//            if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
-//                Tweet tweet = mTweets.get(position);
 
             if (view instanceof ConstraintLayout) {
                 onClickItem(view, position);
@@ -139,10 +136,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         }
 
         public void onClickItem(View view, int position) {
-            ConstraintLayout itemTweet = (ConstraintLayout) view;
-            // Intent i = new Intent(this.context, BookDetailActivity.class);
-            //                i.putExtra("BOOK", Parcels.wrap(book));
-            //                context.startActivity(i);
+            Tweet tweet = mTweets.get(position);
+            Intent i = new Intent(context, TweetDetailActivity.class);
+            i.putExtra("TWEET", Parcels.wrap(tweet));
+            context.startActivity(i);
 
         }
 

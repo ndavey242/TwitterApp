@@ -25,6 +25,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Name"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/tvScreenName"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
@@ -35,7 +37,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:ellipsize="none"
         android:text="Body"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
@@ -48,7 +52,7 @@
         android:layout_marginTop="8dp"
         android:text="@"
         android:textColor="#838383"
-        android:textSize="11sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/tvBody"
         app:layout_constraintEnd_toStartOf="@+id/tvCreatedAt"
         app:layout_constraintHorizontal_bias="0.5"
@@ -62,7 +66,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
         android:text="Time Stamp"
-        android:textSize="11sp"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/tvBody"
         app:layout_constraintStart_toEndOf="@+id/tvScreenName"
         app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +97,7 @@
         app:layout_constraintBottom_toTopOf="@+id/dividerBottom"
         app:layout_constraintEnd_toStartOf="@+id/ibRetweet"
         app:layout_constraintTop_toBottomOf="@+id/tvBody"
-        app:srcCompat="@drawable/ic_vector_reply" />
+        app:srcCompat="@drawable/ic_ibreply" />
 
     <ImageButton
         android:id="@+id/ibRetweet"
