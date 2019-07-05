@@ -28,7 +28,7 @@ The following **stretch** features are implemented:
 * [ ] User sees an **indeterminate progress indicator** when any background or network task is happening
 * [X] User can **select "reply" from detail view to respond to a tweet**
   * [X] User that wrote the original tweet is **automatically "@" replied in compose**
-* [ ] User can tap a tweet to **open a detailed tweet view**
+* [X] User can tap a tweet to **open a detailed tweet view**
   * [ ] User can **take favorite (and unfavorite) or reweet** actions on a tweet
 * [ ] User can **see embedded image media within a tweet** on list or detail view.
 
@@ -40,7 +40,7 @@ The following **bonus** features are implemented:
 * [X] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.org/android/Using-Parceler).
 * [~] **partial:** Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.org/android/Drawables#vector-drawables) where appropriate.
 * [ ] User can view following / followers list through any profile they view.
-* [ ] Use the popular ButterKnife annotation library to reduce view boilerplate.
+* [X] Use the popular ButterKnife annotation library to reduce view boilerplate.
 * [ ] On the Twitter timeline, leverage the [CoordinatorLayout](http://guides.codepath.org/android/Handling-Scrolls-with-CoordinatorLayout#responding-to-scroll-events) to apply scrolling behavior that [hides / shows the toolbar](http://guides.codepath.org/android/Using-the-App-ToolBar#reacting-to-scroll).
 * [ ] User can **open the twitter app offline and see last loaded tweets**. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
 
