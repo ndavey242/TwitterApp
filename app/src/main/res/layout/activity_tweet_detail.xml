@@ -32,11 +32,10 @@
         android:id="@+id/ibRetweet"
         android:layout_width="21dp"
         android:layout_height="21dp"
-        android:layout_marginEnd="12dp"
         android:layout_marginBottom="72dp"
         android:background="#0000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivEntityTweet"
         app:srcCompat="@drawable/ic_vector_retweet" />
 
     <ImageView
@@ -82,27 +81,13 @@
         android:id="@+id/tvBody"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Body"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvBodyBorder"
-        app:layout_constraintEnd_toEndOf="@+id/tvBodyBorder"
-        app:layout_constraintStart_toStartOf="@+id/tvBodyBorder"
-        app:layout_constraintTop_toTopOf="@+id/tvBodyBorder" />
-
-    <TextView
-        android:id="@+id/tvBodyBorder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/back"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/ivEntityTweet"
         app:layout_constraintEnd_toEndOf="@+id/btnFollow"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/ivProfileImage" />
 
@@ -121,19 +106,18 @@
         android:layout_height="wrap_content"
         android:text="TimeStamp"
         app:layout_constraintBottom_toBottomOf="@+id/ibRetweet"
-        app:layout_constraintStart_toStartOf="@+id/tvBodyBorder" />
+        app:layout_constraintStart_toStartOf="@+id/ivEntityTweet" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:id="@+id/ivEntityTweet"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tvCreatedAt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:color/black" />
+        app:layout_constraintEnd_toEndOf="@+id/tvBody"
+        app:layout_constraintStart_toStartOf="@+id/tvBody"
+        app:srcCompat="@android:color/black"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>

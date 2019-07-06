@@ -93,9 +93,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             String entityURL = tweet.entity.loadURL;
             Glide.with(context)
                     .load(entityURL)
+                    .apply(new RequestOptions()
+                            .transform(new RoundedCornersTransformation(30, 0, RoundedCornersTransformation.CornerType.ALL)))
                     .into(viewHolder.ivEntityTweet);
             viewHolder.ivEntityTweet.setVisibility(View.VISIBLE);
         }
+        else{viewHolder.ivEntityTweet.setVisibility(View.GONE);}
     }
 
 

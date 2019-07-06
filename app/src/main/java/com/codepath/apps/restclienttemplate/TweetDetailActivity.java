@@ -27,6 +27,7 @@ public class TweetDetailActivity extends AppCompatActivity {
     @BindView(R.id.tvScreenName) TextView tvScreenName;
     @BindView(R.id.tvBody) TextView tvBody;
     @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
+    @BindView(R.id.ivEntityTweet) ImageView ivEntityTweet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,15 @@ public class TweetDetailActivity extends AppCompatActivity {
                 .apply(new RequestOptions()
                         .transform(new RoundedCornersTransformation(100, 0, RoundedCornersTransformation.CornerType.ALL)))
                 .into(ivProfileImage);
+
+        if (tweet.hasEntities == true){
+            Glide.with(this)
+                    .load(tweet.entity.loadURL)
+                    .apply(new RequestOptions()
+                            .transform(new RoundedCornersTransformation(30, 0, RoundedCornersTransformation.CornerType.ALL)))
+                    .into(ivEntityTweet);
+            ivEntityTweet.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick(R.id.ibReply)
