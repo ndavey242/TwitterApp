@@ -2,7 +2,7 @@
 
 **TwitterApp** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **X** hours spent in total
+Time spent: **25** hours spent in total
 
 ## User Stories
 
@@ -29,8 +29,7 @@ The following **stretch** features are implemented:
 * [X] User can **select "reply" from detail view to respond to a tweet**
   * [X] User that wrote the original tweet is **automatically "@" replied in compose**
 * [X] User can tap a tweet to **open a detailed tweet view**
-  * [ ] User can **take favorite (and unfavorite) or reweet** actions on a tweet
-* [ ] User can **see embedded image media within a tweet** on list or detail view.
+* [X] User can **see embedded image media within a tweet** on list **and** detail view.
 
 The following **bonus** features are implemented:
 
@@ -51,7 +50,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='TwitterAppWalkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
