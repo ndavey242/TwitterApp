@@ -134,7 +134,7 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Use data parameter
-        Tweet newTweet = (Tweet) Parcels.unwrap(getIntent().getParcelableExtra("NEW_TWEET"));
+        Tweet newTweet = (Tweet) Parcels.unwrap(data.getParcelableExtra("NEW_TWEET"));
         tweets.add(0, newTweet);
         tweetAdapter.notifyItemInserted(0);
         rvTweets.scrollToPosition(0);

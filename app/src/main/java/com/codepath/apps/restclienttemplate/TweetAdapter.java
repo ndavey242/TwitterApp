@@ -88,6 +88,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
                 .apply(new RequestOptions()
                 .transform(new RoundedCornersTransformation(100, 0, RoundedCornersTransformation.CornerType.ALL)))
                 .into(viewHolder.ivProfileImage);
+
+        if (tweet.hasEntities==true){
+            String entityURL = tweet.entity.loadURL;
+            Glide.with(context)
+                    .load(entityURL)
+                    .into(viewHolder.ivEntityTweet);
+            viewHolder.ivEntityTweet.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -105,6 +113,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         @BindView(R.id.tvBody) TextView tvBody;
         @BindView(R.id.tvCreatedAt) TextView tvCreatedAt;
         @BindView(R.id.ibReply) ImageButton ibReply;
+        @BindView(R.id.ivEntityTweet) ImageView ivEntityTweet;
 
 
         public ViewHolder(View itemView) {

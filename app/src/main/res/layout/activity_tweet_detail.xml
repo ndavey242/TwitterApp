@@ -96,16 +96,15 @@
     <TextView
         android:id="@+id/tvBodyBorder"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/back"
-        app:layout_constraintBottom_toTopOf="@+id/ibReply"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/btnFollow"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/ivProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/ivProfileImage"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/ivProfileImage" />
 
     <Button
         android:id="@+id/btnFollow"
@@ -120,10 +119,21 @@
         android:id="@+id/tvCreatedAt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="TimeStamp"
         app:layout_constraintBottom_toBottomOf="@+id/ibRetweet"
-        app:layout_constraintStart_toStartOf="@+id/tvBodyBorder"
-        app:layout_constraintTop_toBottomOf="@+id/tvBody" />
+        app:layout_constraintStart_toStartOf="@+id/tvBodyBorder" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvCreatedAt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:color/black" />
 
 </android.support.constraint.ConstraintLayout>

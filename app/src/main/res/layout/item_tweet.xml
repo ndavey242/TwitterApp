@@ -12,11 +12,8 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/dividerBottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.285"
         app:srcCompat="@android:color/black" />
 
     <TextView
@@ -91,41 +88,48 @@
         android:id="@+id/ibReply"
         android:layout_width="21dp"
         android:layout_height="21dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="#0000"
         app:layout_constraintBottom_toTopOf="@+id/dividerBottom"
         app:layout_constraintEnd_toStartOf="@+id/ibLike"
-        app:layout_constraintTop_toBottomOf="@+id/tvBody"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_ibreply" />
 
     <ImageButton
         android:id="@+id/ibLike"
         android:layout_width="21dp"
         android:layout_height="21dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="#0000"
         app:layout_constraintBottom_toTopOf="@+id/dividerBottom"
         app:layout_constraintEnd_toStartOf="@+id/ibRetweet"
-        app:layout_constraintTop_toBottomOf="@+id/tvBody"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_vector_heart_stroke" />
 
     <ImageButton
         android:id="@+id/ibRetweet"
         android:layout_width="21dp"
         android:layout_height="21dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="3dp"
-        android:layout_marginBottom="8dp"
         android:background="#0000"
-        app:layout_constraintBottom_toTopOf="@+id/dividerBottom"
+        app:layout_constraintBottom_toBottomOf="@+id/ibLike"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBody"
         app:srcCompat="@drawable/ic_vector_retweet" />
+
+    <ImageView
+        android:id="@+id/ivEntityTweet"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/ibReply"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvBody"
+        app:layout_constraintTop_toBottomOf="@+id/tvBody"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:color/black"
+        tools:visibility="visible" />
 
 </android.support.constraint.ConstraintLayout>
